@@ -5,6 +5,8 @@ This repository is part of a collection of my personal node.js libraries and tem
 
 This project provides a minimal implementation of types and base classes for configurable components to allow for consistent usages across projects.
 
+The sample below is provided in ```example-module.ts``` for use as a template for new components (if desired).
+
 ```typescript
 import type { Logger } from "tslog";
 import { Config, Override, BaseConfigurable } from "@msamblanet/node-config-types";
@@ -22,7 +24,6 @@ export class Foo extends BaseConfigurable<FooConfig> {
 
     public constructor(log: Logger, ...config: FooConfigOverride[]) {
         super(Foo.DEFAULT_CONFIG, ...config);
-
         this.log = log;
     }
 
