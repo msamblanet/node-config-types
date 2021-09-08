@@ -6,8 +6,8 @@ This repository is part of a collection of my personal node.js libraries and tem
 This project provides a minimal implementation of types and base classes for configurable components to allow for consistent usages across projects.
 
 ```typescript
+import type { Logger } from "tslog";
 import { Config, Override, BaseConfigurable } from "@msamblanet/node-config-types";
-import { Logger } from "tslog";
 
 export interface FooConfig extends Config {
     a: number
