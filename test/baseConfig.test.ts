@@ -25,7 +25,7 @@ test("Verify Config arg patterns", () => {
     expect(new X(undefined).getConfig()).toMatchObject({});
     expect(new X({}).getConfig()).toMatchObject({});
 
-    expect(new X({ a: 1 }, { b: 2 }).getConfig()).toMatchObject({ a: 1, b: 2 });
+    expect(new X({ a: 1 }, { a: { b: 2 } }).getConfig()).toMatchObject({ a: { b: 2 } });
     expect(new X({ a: 1 }, { a: 2 }).getConfig()).toMatchObject({ a: 2 });
     expect(new X({ a: 1 }, null, undefined).getConfig()).toMatchObject({ a: 1 });
     expect(new X({ a: 1 }, null, undefined, { a: 2 }).getConfig()).toMatchObject({ a: 2 });

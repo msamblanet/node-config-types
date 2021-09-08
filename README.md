@@ -6,7 +6,8 @@ This repository is part of a collection of my personal node.js libraries and tem
 This project provides a minimal implementation of types and base classes for configurable components to allow for consistent usages across projects.
 
 ```typescript
-import { Config, Override, BaseConfigurable } from "@msamblanet-node-config-types";
+import type { Logger } from "tslog";
+import { Config, Override, BaseConfigurable } from "@msamblanet/node-config-types";
 
 export interface FooConfig extends Config {
     a: number
@@ -17,8 +18,12 @@ export type FooConfigOverride = Override<FooConfig>
 export class Foo extends BaseConfigurable<FooConfig> {
     public static readonly DEFAULT_CONFIG = { a: 1, b: 2 }
 
-    public constructor(...config: FooConfigOverride[]) {
+    protected readonly log: Logger;
+
+    public constructor(log: Logger, ...config: FooConfigOverride[]) {
         super(Foo.DEFAULT_CONFIG, ...config);
+
+        this.log = log;
     }
 
     public someMethod(): number {
