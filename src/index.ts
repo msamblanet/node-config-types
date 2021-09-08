@@ -1,14 +1,8 @@
 import extend from "extend";
+import type { DeepPartial } from "tsdef";
 
-export type AllOptional<T> = {
-    [P in keyof T]?: T[P];
-};
-export type RecursiveAllOptional<T> = {
-    [P in keyof T]?: RecursiveAllOptional<T[P]>;
-};
-
-export type Config = Record<string | number | symbol, unknown>
-export type Override<X> = unknown // eslint-disable-line @typescript-eslint/no-unused-vars
+export type Config = {}
+export type Override<X> = undefined | null | DeepPartial<X>;
 export class BaseConfigurable<X extends Config> {
     protected config: X;
 

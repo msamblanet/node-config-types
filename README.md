@@ -6,7 +6,7 @@ This repository is part of a collection of my personal node.js libraries and tem
 This project provides a minimal implementation of types and base classes for configurable components to allow for consistent usages across projects.
 
 ```typescript
-import { Config, Override, BaseConfigurable } from "@msamblanet-node-config-types";
+import { Config, Override, BaseConfigurable } from "@msamblanet/node-config-types";
 
 export interface FooConfig extends Config {
     a: number
