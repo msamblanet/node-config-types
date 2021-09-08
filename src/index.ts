@@ -1,7 +1,7 @@
 import extend from "extend";
 import type { DeepPartial } from "tsdef";
 
-export type Config = {}
+export type Config = {}; // eslint-disable-line @typescript-eslint/ban-types
 export type Override<X> = undefined | null | DeepPartial<X>;
 export class BaseConfigurable<X extends Config> {
     protected config: X;
