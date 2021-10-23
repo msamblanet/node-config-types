@@ -5,29 +5,60 @@ This repository is part of a collection of my personal node.js libraries and tem
 
 This project provides a minimal implementation of types and base classes for configurable components to allow for consistent usages across projects.
 
+The sample below is provided in ```example-module.ts``` for use as a template for new components (if desired).
+
 ```typescript
 import type { Logger } from "tslog";
-import { Config, Override, BaseConfigurable } from "@msamblanet/node-config-types";
+import { Config, Overrides, BaseConfigurable } from "@msamblanet/node-config-types";
 
-export interface FooConfig extends Config {
+export interface FooConfig extends IConfig {
     a: number
     b: number
 }
-export type FooConfigOverride = Override<FooConfig>
 
-export class Foo extends BaseConfigurable<FooConfig> {
+export class SimpleFoo extends BaseConfigurable<FooConfig> {
     public static readonly DEFAULT_CONFIG = { a: 1, b: 2 }
 
     protected readonly log: Logger;
 
-    public constructor(log: Logger, ...config: FooConfigOverride[]) {
+    public constructor(log: Logger, ...config: Overrides<FooConfig>) {
         super(Foo.DEFAULT_CONFIG, ...config);
-
         this.log = log;
     }
 
     public someMethod(): number {
         return this.config.a + this.config.b;
+    }
+}
+
+export abstract class AbstractFoo<X extends FooConfig = FooConfig> extends BaseConfigurable<X> {
+    public static readonly DEFAULT_CONFIG = { a: 1, b: 2 }
+
+    protected readonly log: Logger;
+
+    public constructor(log: Logger, defaults: X, ...config: Overrides<X>) {
+        super(defaults, ...config);
+        this.log = log;
+    }
+
+    abstract public someMethod(): number;
+}
+
+export interface ConcreteFooConfig extends IConfig {
+  c: number
+}
+export class ConcreteFoo<X extends FooConfig = FooConfig> extends AbstractFoo<X> {
+    public static readonly DEFAULT_CONFIG = BaseConfig.mergeOptions(AbstractFoo.DEFAULT_CONFIG, {
+      b: 42,
+      c: 3
+    });
+
+    public constructor(log: Logger, defaults: X, ...config: Overrides<X>) {
+      super(log, ConcreteFoo.DEFAULT_CONFIG, ...config);
+    }
+
+    public someMethod(): number {
+        return this.config.a + this.config.b + this.config.c;
     }
 }
 ```
