@@ -57,7 +57,7 @@
         ]
     },
     "devDependencies": {
-        "@msamblanet/node-project-settings": "^0.3.0",
+        "@msamblanet/node-project-template": "^0.1.0",
         "@types/extend": "^3.0.1",
         "@types/jest": "^27.0.1",
         "@types/mocha": "^9.0.0",
@@ -82,6 +82,6 @@
     "dependencies": {
         "@msamblanet/node-config-types": "^0.2.0",
         "extend": "^3.0.2",
-        "tsdef": "^0.0.14"
+        "type-fest": "^2.5.1"
     }
 }

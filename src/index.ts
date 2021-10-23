@@ -1,13 +1,18 @@
 import extend from "extend";
-import type { DeepPartial } from "tsdef";
+import type { PartialDeep } from "type-fest";
 
 export type Config = {}; // eslint-disable-line @typescript-eslint/ban-types
-export type Override<X> = undefined | null | DeepPartial<X>;
+export type Override<X> = undefined | null | PartialDeep<X>;
+export type Overrides<X> = Array<Override<X>>;
 export class BaseConfigurable<X extends Config> {
-    protected config: X;
+    public static mergeOptions<X>(defaults: X, ...overrides: Overrides<X>) {
+        return extend(true, {}, defaults, ...overrides);
+    }
 
-    protected constructor(defaultConfig?: X, ...overrides: Override<X>[]) {
-        this.config = extend(true, {}, defaultConfig, ...overrides);
+   protected config: X;
+
+    protected constructor(defaults?: X, ...overrides: Overrides<X>) {
+        this.config = BaseConfigurable.mergeOptions(defaults, ...overrides);
     }
 }
 export default BaseConfigurable;
