@@ -9,20 +9,19 @@ The sample below is provided in ```example-module.ts``` for use as a template fo
 
 ```typescript
 import type { Logger } from "tslog";
-import { Config, Override, BaseConfigurable } from "@msamblanet/node-config-types";
+import { Config, Overrides, BaseConfigurable } from "@msamblanet/node-config-types";
 
-export interface FooConfig extends Config {
+export interface FooConfig extends IConfig {
     a: number
     b: number
 }
-export type FooConfigOverride = Override<FooConfig>
 
 export class Foo extends BaseConfigurable<FooConfig> {
     public static readonly DEFAULT_CONFIG = { a: 1, b: 2 }
 
     protected readonly log: Logger;
 
-    public constructor(log: Logger, ...config: FooConfigOverride[]) {
+    public constructor(log: Logger, ...config: Overrides<FooConfig>) {
         super(Foo.DEFAULT_CONFIG, ...config);
         this.log = log;
     }
