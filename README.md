@@ -16,7 +16,7 @@ export interface FooConfig extends IConfig {
     b: number
 }
 
-export class Foo extends BaseConfigurable<FooConfig> {
+export class SimpleFoo extends BaseConfigurable<FooConfig> {
     public static readonly DEFAULT_CONFIG = { a: 1, b: 2 }
 
     protected readonly log: Logger;
@@ -28,6 +28,37 @@ export class Foo extends BaseConfigurable<FooConfig> {
 
     public someMethod(): number {
         return this.config.a + this.config.b;
+    }
+}
+
+export abstract class AbstractFoo<X extends FooConfig = FooConfig> extends BaseConfigurable<X> {
+    public static readonly DEFAULT_CONFIG = { a: 1, b: 2 }
+
+    protected readonly log: Logger;
+
+    public constructor(log: Logger, defaults: X, ...config: Overrides<X>) {
+        super(defaults, ...config);
+        this.log = log;
+    }
+
+    abstract public someMethod(): number;
+}
+
+export interface ConcreteFooConfig extends IConfig {
+  c: number
+}
+export class ConcreteFoo<X extends FooConfig = FooConfig> extends AbstractFoo<X> {
+    public static readonly DEFAULT_CONFIG = BaseConfig.mergeOptions(AbstractFoo.DEFAULT_CONFIG, {
+      b: 42,
+      c: 3
+    });
+
+    public constructor(log: Logger, defaults: X, ...config: Overrides<X>) {
+      super(log, ConcreteFoo.DEFAULT_CONFIG, ...config);
+    }
+
+    public someMethod(): number {
+        return this.config.a + this.config.b + this.config.c;
     }
 }
 ```
