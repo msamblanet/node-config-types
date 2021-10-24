@@ -1,5 +1,5 @@
 import extend from 'extend';
-import type { DeepPartial } from 'tsdef'; // Do not use type-fest PartialDeep as it causes validation challenges
+import type { DeepPartial } from 'tsdef'; // Do not use type-fest PartialDeep as it causes validation challenges if the type has unknowns
 
 export type IConfig = {}; // eslint-disable-line @typescript-eslint/ban-types
 export type Override<X> = undefined | null | DeepPartial<X>;
