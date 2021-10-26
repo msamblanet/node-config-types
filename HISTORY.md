@@ -1,6 +1,6 @@
 # Node Config Types - Revision History
 
-- 2021-10-26: v0.3.2 - BREAKING
+- 2021-10-26: v0.3.2
   - Updated example in readme
   - Added badge to readme
   - Version bumps
