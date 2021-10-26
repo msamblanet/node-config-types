@@ -1,5 +1,8 @@
 # Node Config Types - Revision History
 
+- ????
+  - Change readme.md example to use proper import
+
 - 2021-10-26: v0.3.2
   - Updated example in readme
   - Added badge to readme

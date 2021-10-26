@@ -9,7 +9,7 @@ This project provides a minimal implementation of types and base classes for con
 The sample below is provided in ```example-module.ts``` for use as a template for new components (if desired).
 
 ```typescript
-import { IConfig, Overrides, BaseConfigurable } from './src/index.js'; // '@msamblanet/node-config-types';
+import { IConfig, Overrides, BaseConfigurable } from '@msamblanet/node-config-types';
 
 type Logger = unknown; // Placeholder type for this example
 
