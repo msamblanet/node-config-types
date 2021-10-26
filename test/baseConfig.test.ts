@@ -15,7 +15,7 @@ test('Verify Config arg patterns', () => {
 
     class X extends Lib.BaseConfigurable<TestConfig> {
       public constructor(...args: TestConfigOverride[]) {
-        super(undefined, ...args);
+        super(undefined as unknown as TestConfig, ...args);
       }
 
       public getConfig(): TestConfig {

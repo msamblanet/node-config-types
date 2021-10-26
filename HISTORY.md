@@ -1,7 +1,9 @@
 # Node Config Types - Revision History
 
-- TBD
+- 2021-10-26: v0.3.2 - BREAKING
   - Updated example in readme
+  - Added badge to readme
+  - Version bumps
 
 - 2021-10-23: v0.3.1 - BREAKING
   - Expanded example, added template module
