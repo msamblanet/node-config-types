@@ -8,26 +8,33 @@ This project provides a minimal implementation of types and base classes for con
 
 The sample below is provided in ```example-module.ts``` for use as a template for new components (if desired).
 
-```typescript
-import { IConfig, Overrides, BaseConfigurable } from './src/index.js'; // '@msamblanet/node-config-types';
+Variations of ```BaseConfigurable``` are provided to account for logging classes and event emitters.  The full list of base clases are:
 
-type Logger = unknown; // Placeholder type for this example
+- ```BaseConfigurable<C>```
+- ```BaseEmittingConfigurable<C>``` - Subclasses ```EventEmitter```
+- ```BaseLoggingConfigurable<C,L>``` - Exposes ```log``` in a protected member
+- ```BaseLoggingEmittingConfigurable<C,L>``` - Exposes ```log``` in a protected member, subclasses ```EventEmitter```
+- In all of the above:
+  - ```C``` is the type of the config and defaults to ```IConfig```
+  - ```L``` is the type of the logger and it defaults to ```ILogAdapter``` from ```@msamblanet/slf4j``` (but can be anything)
+
+```typescript
+import { IConfig, Overrides, mergeOptions, BaseLoggingConfigurable } from '@msamblanet/node-config-types';
+
+export type IExampleLogger = unknown;
 
 // ********************************************************
 
-export interface FooConfig extends IConfig {
+export interface FooConfig {
   a: number;
   b: number;
 }
 
-export class SimpleFoo extends BaseConfigurable<FooConfig> {
+export class SimpleFoo extends BaseLoggingConfigurable<FooConfig, IExampleLogger> {
   public static readonly DEFAULT_CONFIG = { a: 1, b: 2 };
 
-  protected readonly log: Logger;
-
-  public constructor(log: Logger, ...config: Overrides<FooConfig>) {
-    super(SimpleFoo.DEFAULT_CONFIG, ...config);
-    this.log = log;
+  public constructor(log: IExampleLogger, ...config: Overrides<FooConfig>) {
+    super(log, SimpleFoo.DEFAULT_CONFIG, ...config);
   }
 
   public someMethod(): number {
@@ -37,19 +44,16 @@ export class SimpleFoo extends BaseConfigurable<FooConfig> {
 
 // ********************************************************
 
-export interface AbstractFooConfig extends IConfig {
+export interface AbstractFooConfig {
   a: number;
   b: number;
 }
 
-export abstract class AbstractFoo<X extends AbstractFooConfig = AbstractFooConfig> extends BaseConfigurable<X> {
+export abstract class AbstractFoo<X extends AbstractFooConfig = AbstractFooConfig> extends BaseLoggingConfigurable<X, IExampleLogger> {
   public static readonly DEFAULT_CONFIG = { a: 1, b: 2 };
 
-  protected readonly log: Logger;
-
-  public constructor(log: Logger, defaults: X, ...config: Overrides<X>) {
-    super(defaults, ...config);
-    this.log = log;
+  public constructor(log: IExampleLogger, defaults: X, ...overrides: Overrides<X>) {
+    super(log, defaults, ...overrides);
   }
 
   public abstract someMethod(): number;
@@ -62,13 +66,13 @@ export interface ConcreteFooConfig extends AbstractFooConfig {
 }
 
 export class ConcreteFoo extends AbstractFoo<ConcreteFooConfig> {
-  public static readonly DEFAULT_CONFIG: ConcreteFooConfig = BaseConfigurable.mergeOptions(AbstractFoo.DEFAULT_CONFIG, {
+  public static readonly DEFAULT_CONFIG: ConcreteFooConfig = mergeOptions<ConcreteFooConfig>(AbstractFoo.DEFAULT_CONFIG, {
     b: 42,
     c: 3
   });
 
-  public constructor(log: Logger, ...config: Overrides<ConcreteFooConfig>) {
-    super(log, ConcreteFoo.DEFAULT_CONFIG, ...config);
+  public constructor(log: IExampleLogger, ...overrides: Overrides<ConcreteFooConfig>) {
+    super(log, ConcreteFoo.DEFAULT_CONFIG, ...overrides);
   }
 
   public someMethod(): number {
