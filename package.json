@@ -1,6 +1,6 @@
 {
     "name": "@msamblanet/node-config-types",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "private": false,
     "description": "TS types and utility methods for @msamblanet packages",
     "homepage": "https://github.com/msamblanet/node-config-types",
@@ -21,29 +21,29 @@
         "dist"
     ],
     "scripts": {
-      "dev": "node --loader ts-node/esm src/main.ts",
-      "debug": "node --inspect --loader ts-node/esm src/main.ts",
-      "nodemon": "nodemon src/main.ts",
-      "prod:init": "npm ci --only=production",
-      "prod:start": "node dist/main.js",
-      "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-      "test:open": "opener \"./coverage/lcov-report/index.html\"",
-      "test:debug": "node --inspect --experimental-vm-modules node_modules/jest/bin/jest.js",
-      "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js -- watch",
-      "lint": "xo",
-      "lint:fix": "xo --fix",
-      "build": "npm run build:clean && npm run build:gen",
-      "build:clean": "del-cli dist",
-      "build:check": "tsc --noEmit",
-      "build:gen": "tsc",
-      "prepack": "npm run lint && npm run build:check && npm run build",
-      "lib:check": "ncu",
-      "lib:update:patch": "ncu -u -t patch && npm install",
-      "lib:update:minor": "ncu -u -t minor && npm install",
-      "lib:update:latest": "ncu -u -t latest && npm install",
-      "lib:update:doctor": "ncu --doctor -u -t latest",
-      "lib:unused": "npx depcheck",
-      "applyProjectTemplate": "applyProjectTemplate"
+        "dev": "node --loader ts-node/esm src/main.ts",
+        "debug": "node --inspect --loader ts-node/esm src/main.ts",
+        "nodemon": "nodemon src/main.ts",
+        "prod:init": "npm ci --only=production",
+        "prod:start": "node dist/main.js",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "test:open": "opener \"./coverage/lcov-report/index.html\"",
+        "test:debug": "node --inspect --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js -- watch",
+        "lint": "xo",
+        "lint:fix": "xo --fix",
+        "build": "npm run build:clean && npm run build:gen",
+        "build:clean": "del-cli dist",
+        "build:check": "tsc --noEmit",
+        "build:gen": "tsc",
+        "prepack": "npm run lint && npm run build:check && npm run build",
+        "lib:check": "ncu",
+        "lib:update:patch": "ncu -u -t patch && npm install",
+        "lib:update:minor": "ncu -u -t minor && npm install",
+        "lib:update:latest": "ncu -u -t latest && npm install",
+        "lib:update:doctor": "ncu --doctor -u -t latest",
+        "lib:unused": "npx depcheck",
+        "applyProjectTemplate": "applyProjectTemplate"
     },
     "nodemonConfig": {
         "execMap": {
@@ -121,9 +121,13 @@
     "devDependencies": {
         "@msamblanet/node-project-template": "^0.7.0",
         "@types/extend": "^3.0.1",
+        "jest-mock-extended": "^2.0.4",
         "tsdef": "^0.0.14"
     },
     "engines": {
         "node": ">=16.7.0"
+    },
+    "optionalDependencies": {
+        "@msamblanet/node-slf": "^0.1.2"
     }
 }

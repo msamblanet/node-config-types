@@ -1,7 +1,12 @@
 # Node Config Types - Revision History
 
-- ????
+- 2021-10-27: v0.4.0
   - Change readme.md example to use proper import
+  - Move mergeOptions into stand-alone method
+  - Deprecate BaseConfigurable.mergeOptions
+  - Add BaseEmittingConfigurable, BaseLoggingConfigurable, BaseLoggingEmittingConfigurable
+  - Removed hard requirement to extend IConfig
+  - Added default for type of config (IConfig) and the logger (ILogAdpater from @msamblanet/node-slf)
 
 - 2021-10-26: v0.3.2
   - Updated example in readme
