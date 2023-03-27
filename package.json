@@ -121,7 +121,7 @@
     "devDependencies": {
         "@msamblanet/node-project-template": "^0.7.0",
         "@types/extend": "^3.0.1",
-        "jest-mock-extended": "^2.0.4",
+        "jest-mock-extended": "^3.0.4",
         "tsdef": "^0.0.14"
     },
     "engines": {
